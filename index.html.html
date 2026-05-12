@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portal Colegio San Felipe Neri</title>
+  <meta name="description" content="Portal institucional del Colegio San Felipe Neri, Bogotá">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --azul:    #0B0B7D;
+      --rojo:    #CC0000;
+      --amarillo:#FAC92E;
+      --claro:   #DEE7EF;
+      --texto:   #2c3539;
+      --fondo:   #f0f4f8;
+    }
+
+    body {
+      font-family: 'Arimo', sans-serif;
+      background: var(--fondo);
+      color: var(--texto);
+    }
+
+    /* ── HEADER ─────────────────────────────── */
+    .header {
+      background: white;
+      border-bottom: 3px solid var(--rojo);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .logo-area { display: flex; align-items: center; gap: 14px; }
+
+    .logo-escudo {
+      width: 52px; height: 52px;
+      background: var(--azul);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: white; font-weight: 700; flex-shrink: 0;
+    }
+
+    .logo-texto h1 { font-size: 16px; font-weight: 700; color: var(--azul); line-height: 1.2; }
+    .logo-texto p  { font-size: 11px; color: #666; margin-top: 2px; }
+
+    /* ── NAVEGACIÓN ──────────────────────────── */
+    nav { display: flex; gap: 3px; flex-wrap: wrap; }
+
+    .nav-btn {
+      padding: 7px 14px;
+      font-family: 'Arimo', sans-serif;
+      font-size: 12px; font-weight: 700;
+      border: none; cursor: pointer;
+      border-radius: 20px;
+      transition: all .2s;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+    }
+
+    .nav-inicio {
+      background: white; color: var(--azul);
+      border: 2px solid var(--azul);
+    }
+    .nav-inicio:hover, .nav-inicio.active {
+      background: var(--azul); color: white;
+    }
+
+    .nav-opciones {
+      background: var(--rojo); color: white;
+      border: 2px solid var(--rojo);
+    }
+    .nav-opciones:hover { background: #a00; border-color: #a00; }
+
+    /* ── HERO / SLIDER ───────────────────────── */
+    .slider-wrap {
+      background: linear-gradient(135deg, var(--azul) 0%, #1a1a9e 100%);
+      padding: 36px 24px;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slider-wrap::before {
+      content: '';
+      position: absolute; top: -40px; right: -40px;
+      width: 220px; height: 220px;
+      background: rgba(255,255,255,.05); border-radius: 50%;
+    }
+
+    .slider-badge {
+      display: inline-block;
+      background: var(--rojo);
+      color: white; font-size: 10px; font-weight: 700;
+      padding: 3px 12px; border-radius: 12px;
+      letter-spacing: 1px; margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+
+    .slider-title  { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .slider-sub    { font-size: 13px; opacity: .8; margin-bottom: 22px; }
+
+    .slider-dots { display: flex; justify-content: center; gap: 8px; }
+    .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: rgba(255,255,255,.35); cursor: pointer; transition: .2s;
+    }
+    .dot.active { background: var(--amarillo); width: 24px; border-radius: 4px; }
+
+    /* ── LAYOUT PRINCIPAL ────────────────────── */
+    .content {
+      display: grid;
+      grid-template-columns: 220px 1fr 210px;
+      gap: 16px;
+      padding: 20px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ── CABECERAS DE COLUMNA ────────────────── */
+    .col-secciones h2,
+    .col-noticias h2,
+    .col-interes h2 {
+      font-size: 12px; font-weight: 700;
+      color: white; background: var(--azul);
+      padding: 9px 14px;
+      border-radius: 8px 8px 0 0;
+      text-transform: uppercase; letter-spacing: .5px;
+    }
+
+    /* ── COLUMNA SECCIONES ───────────────────── */
+    .col-secciones {
+      background: white;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 5px rgba(0,0,0,.08);
+    }
+
+    .sec-list { display: flex; flex-direction: column; }
+
+    .sec-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 14px;
+      font-size: 12px; font-weight: 600; color: var(--azul);
+      text-decoration: none;
+      border-bottom: 1px solid #f0f4f8;
+      transition: background .15s;
+    }
+    .sec-item:last-child { border-bottom: none; }
+    .sec-item:hover { background: #f0f4f8; }
+
+    .sec-icon {
+      width: 30px; height: 30px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; flex-shrink: 0;
+    }
+
+    .ic-red    { background: #ffecec; }
+    .ic-blue   { background: #e8eeff; }
+    .ic-green  { background: #e8f5e9; }
+    .ic-orange { background: #fff3e0; }
+    .ic-purple { background: #f3e8ff; }
+    .ic-teal   { background: #e0f7fa; }
+
+    /* ── COLUMNA NOTICIAS ────────────────────── */
+    .col-noticias {
+      background: white;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 5px rgba(0,0,0,.08);
+    }
+
+    .noticia-card {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f0f4f8;
+    }
+    .noticia-card:last-child { border-bottom: none; }
+
+    .noticia-titulo {
+      font-size: 13px; font-weight: 700;
+      color: var(--azul); margin-bottom: 3px; line-height: 1.3;
+    }
+    .noticia-fecha {
+      font-size: 10px; color: #888; font-style: italic; margin-bottom: 10px;
+    }
+    .noticia-img {
+      width: 100%; height: 100px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: #888; font-style: italic;
+    }
+    .noticia-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; border-radius: 6px;
+    }
+
+    /* ── COLUMNA INTERÉS ─────────────────────── */
+    .col-interes {
+      background: white;
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 1px 5px rgba(0,0,0,.08);
+    }
+
+    .interes-list { padding: 8px 10px; }
+
+    .interes-item {
+      display: flex; align-items: flex-start; gap: 7px;
+      padding: 8px 4px;
+      border-bottom: 1px solid #f5f5f5;
+      font-size: 11px; text-decoration: none; cursor: pointer;
+    }
+    .interes-item:last-child { border-bottom: none; }
+    .interes-item:hover .interes-texto { color: var(--rojo); }
+
+    .interes-punto {
+      width: 7px; height: 7px;
+      background: var(--amarillo); border-radius: 50%;
+      flex-shrink: 0; margin-top: 3px;
+      border: 1.5px solid #c8a000;
+    }
+
+    .interes-texto {
+      color: var(--azul); font-weight: 600; line-height: 1.35;
+      transition: color .15s;
+    }
+
+    /* ── REDES SOCIALES ──────────────────────── */
+    .redes {
+      display: flex; gap: 10px;
+      padding: 16px 24px;
+      background: white;
+      border-top: 1px solid #e8eef4;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .red-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 18px; border-radius: 20px;
+      font-family: 'Arimo', sans-serif;
+      font-size: 13px; font-weight: 700;
+      text-decoration: none;
+      border: 1.5px solid; transition: all .2s;
+    }
+    .red-fb  { color: #1877f2; border-color: #1877f2; }
+    .red-fb:hover  { background: #1877f2; color: white; }
+    .red-yt  { color: #ff0000; border-color: #ff0000; }
+    .red-yt:hover  { background: #ff0000; color: white; }
+    .red-ig  { color: #e1306c; border-color: #e1306c; }
+    .red-ig:hover  { background: #e1306c; color: white; }
+
+    /* ── FOOTER ──────────────────────────────── */
+    footer {
+      background: var(--azul); color: white;
+      padding: 20px 24px; text-align: center;
+    }
+    footer h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    footer p  { font-size: 12px; opacity: .78; line-height: 1.8; }
+    footer a  { color: var(--amarillo); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* ── RESPONSIVE ──────────────────────────── */
+    @media (max-width: 900px) {
+      .content { grid-template-columns: 1fr 1fr; }
+      .col-interes { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 600px) {
+      .content { grid-template-columns: 1fr; padding: 12px; }
+      .header { padding: 12px; }
+      nav { display: none; }
+      .slider-title { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══════════════════════════════════════ -->
+  <header class="header">
+    <div class="logo-area">
+      <div class="logo-escudo">SFN</div>
+      <div class="logo-texto">
+        <h1>Colegio San Felipe Neri</h1>
+        <p>Educando Líderes desde 1965 · Bogotá</p>
+      </div>
+    </div>
+    <nav>
+      <button class="nav-btn nav-inicio active" onclick="setActive(this)">Inicio</button>
+      <button class="nav-btn nav-opciones" onclick="setActive(this)">Mi Colegio</button>
+      <button class="nav-btn nav-opciones" onclick="setActive(this)">Calendario</button>
+      <button class="nav-btn nav-opciones" onclick="setActive(this)">Galería</button>
+      <button class="nav-btn nav-opciones" onclick="setActive(this)">Circulares</button>
+      <button class="nav-btn nav-opciones" onclick="setActive(this)">Académico</button>
+      <button class="nav-btn nav-opciones" onclick="setActive(this)">Contacto</button>
+    </nav>
+  </header>
+
+  <!-- ══ HERO SLIDER ══════════════════════════════════ -->
+  <div class="slider-wrap">
+    <div class="slider-badge" id="slider-badge">Semana Cultural 2026</div>
+    <div class="slider-title" id="slider-title">¡Bienvenidos al Portal Institucional!</div>
+    <div class="slider-sub" id="slider-sub">Comunidad Filipense · Alcázares, Bogotá · NIT 860.007.760-9</div>
+    <div class="slider-dots">
+      <div class="dot active" onclick="goSlide(0)"></div>
+      <div class="dot" onclick="goSlide(1)"></div>
+      <div class="dot" onclick="goSlide(2)"></div>
+      <div class="dot" onclick="goSlide(3)"></div>
+    </div>
+  </div>
+
+  <!-- ══ CONTENIDO PRINCIPAL ══════════════════════════ -->
+  <main class="content">
+
+    <!-- Columna Secciones -->
+    <div class="col-secciones">
+      <h2>Secciones</h2>
+      <div class="sec-list">
+        <a class="sec-item" href="https://www.syscolegios.com/" target="_blank">
+          <div class="sec-icon ic-blue">🖥</div> Syscolegios
+        </a>
+        <a class="sec-item" href="https://accounts.mheducation.com/login" target="_blank">
+          <div class="sec-icon ic-green">📚</div> Plataforma Inglés
+        </a>
+        <a class="sec-item" href="#">
+          <div class="sec-icon ic-orange">🎓</div> Estudiantes
+        </a>
+        <a class="sec-item" href="https://heyzine.com/flip-book/5a31d2af15.html" target="_blank">
+          <div class="sec-icon ic-red">📰</div> Filiprensa
+        </a>
+        <a class="sec-item" href="https://sites.google.com/view/colegiosanfelipeneribogota/inicio" target="_blank">
+          <div class="sec-icon ic-purple">🌟</div> Talentos
+        </a>
+        <a class="sec-item" href="#">
+          <div class="sec-icon ic-teal">👨‍🎓</div> Egresados
+        </a>
+        <a class="sec-item" href="#">
+          <div class="sec-icon ic-blue">📋</div> Actualización Datos
+        </a>
+        <a class="sec-item" href="#">
+          <div class="sec-icon ic-orange">📁</div> Directorio Docentes
+        </a>
+        <a class="sec-item" href="#">
+          <div class="sec-icon ic-green">📖</div> Biblioteca
+        </a>
+        <a class="sec-item" href="#">
+          <div class="sec-icon ic-red">⚕️</div> Salud
+        </a>
+        <a class="sec-item" href="#">
+          <div class="sec-icon ic-purple">✝️</div> Pastoral
+        </a>
+        <a class="sec-item" href="https://drive.google.com/file/d/1CiFdOg3FASRjxuUFNjlfxDlYS80YjEok/view" target="_blank">
+          <div class="sec-icon ic-teal">🏛</div> Oratorio
+        </a>
+      </div>
+    </div>
+
+    <!-- Columna Noticias -->
+    <div class="col-noticias">
+      <h2>Noticias</h2>
+
+      <div class="noticia-card">
+        <div class="noticia-titulo">Semana Cultural 2026</div>
+        <div class="noticia-fecha">10/05/2026 · 03:51</div>
+        <div class="noticia-img" style="background:#dde7ef;">
+          <!-- <img src="images/2605104.jpeg" alt="Semana Cultural 2026"> -->
+          Imagen semana cultural 2026
+        </div>
+      </div>
+
+      <div class="noticia-card">
+        <div class="noticia-titulo">Edición inicio de año — Filiprensa</div>
+        <div class="noticia-fecha">20/04/2026 · 09:04</div>
+        <div class="noticia-img" style="background:#e0ecf7;">
+          <!-- <img src="images/260420WhatsApp..." alt="Filiprensa inicio año"> -->
+          Ver edición flip-book
+        </div>
+      </div>
+
+      <div class="noticia-card">
+        <div class="noticia-titulo">¡Aún estás a tiempo, matrículas abiertas 2026!</div>
+        <div class="noticia-fecha">10/12/2025 · 07:55</div>
+        <div class="noticia-img" style="background:#fff0e0;">
+          <!-- <img src="images/251210nuevo.jpg" alt="Matrículas 2026"> -->
+          Ver video informativo
+        </div>
+      </div>
+
+      <div class="noticia-card">
+        <div class="noticia-titulo">Edición fin de año — Filiprensa</div>
+        <div class="noticia-fecha">01/12/2025 · 07:41</div>
+        <div class="noticia-img" style="background:#f0e8f0;">
+          <!-- <img src="images/251201filpren.jpg" alt="Filiprensa fin de año"> -->
+          Ver edición fin de año
+        </div>
+      </div>
+
+      <div class="noticia-card">
+        <div class="noticia-titulo">Cumpliendo 60 años de labor docente</div>
+        <div class="noticia-fecha">28/05/2025 · 07:55</div>
+        <div class="noticia-img" style="background:#e8f5e8;">
+          <!-- <img src="images/250529sesenta.jpg" alt="60 años"> -->
+          60 años educando líderes
+        </div>
+      </div>
+
+      <div class="noticia-card">
+        <div class="noticia-titulo">Botón de pagos en línea — Scotiabank Colpatria</div>
+        <div class="noticia-fecha">31/10/2023 · 05:27</div>
+        <div class="noticia-img" style="background:#eee;">
+          <!-- <img src="images/231031BANNERS SFNB.png" alt="Pagos en línea"> -->
+          Acceder al botón de pago
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna De Interés -->
+    <div class="col-interes">
+      <h2>De Interés</h2>
+      <div class="interes-list">
+        <a class="interes-item" href="admon/documentos/COMUNICADO 508 JORNADA PEDAGOGICA 2026.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">15 de Mayo — Día sin clases</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/Comunicado 507 inaguración juegos 2026.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Circular 507 — Juegos Filipenses</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/CRONOGRAMA MAYO 2026.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Cronograma de Mayo 2026</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/REFUERZO 2° PERIODO 2026.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Calendario refuerzo 2° período</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/3-CRONOGRAMA ABRIL 2026.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Cronograma de Abril 2026</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/comunicacdo 25 marzo NERI.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Información importante — Marzo</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/PROCESOS DE REFUERZO 1° PERIODO 2026.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Superación y recuperación 1° período 2026</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/brochure 2026.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Brochure 2026 — Presentación institucional</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/USOP TP.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Proyecto uso del tiempo libre</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/Tu me cuidas yo te cuido.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Enfermería — "Tu me cuidas, yo te cuido"</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/HSE PL-SGSST-02 POLÍTICA DE PROTECCIÓN Y TRATAMIENTO DE DATOS PERSONALES.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Habeas Data — Política de datos personales</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/Santos Beatos Venerables y Siervos.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Santos y Beatos en la Congregación</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/SAN FELIPE NERI.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Historia de San Felipe Neri</span>
+        </a>
+        <a class="interes-item" href="admon/documentos/PDF PSE.pdf" target="_blank">
+          <span class="interes-punto"></span>
+          <span class="interes-texto">Instructivo pago débito en línea PSE</span>
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ══ REDES SOCIALES ══════════════════════════════ -->
+  <div class="redes">
+    <a class="red-btn red-fb" href="https://www.facebook.com/pages/Colegio-San-Felipe-Neri-Bogot%C3%A1/454330267969658" target="_blank">
+      Facebook
+    </a>
+    <a class="red-btn red-yt" href="https://www.youtube.com/channel/UCLs0EMLM5wJMS0RZyT72R8A" target="_blank">
+      YouTube
+    </a>
+    <a class="red-btn red-ig" href="https://www.instagram.com/felipeneribogota" target="_blank">
+      Instagram
+    </a>
+  </div>
+
+  <!-- ══ FOOTER ════════════════════════════════════════ -->
+  <footer>
+    <h3>Colegio San Felipe Neri</h3>
+    <p>Cr. 27C #71-80 Barrio Alcázares · Bogotá, Colombia</p>
+    <p>📞 322 458 13 69 Secretaría &nbsp;|&nbsp; 319 512 96 50 WhatsApp</p>
+    <p>
+      <a href="mailto:csfn@sanfelipeneribogota.edu.co">csfn@sanfelipeneribogota.edu.co</a> &nbsp;|&nbsp;
+      <a href="mailto:secretariacsfn@colegiosanfelipeneribogota.edu.co">secretariacsfn@colegiosanfelipeneribogota.edu.co</a>
+    </p>
+    <p style="margin-top:10px; font-size:10px; opacity:.5;">
+      &copy; 2026 Colegio San Felipe Neri · Todos los derechos reservados
+    </p>
+  </footer>
+
+  <script>
+    /* ── Navegación activa ── */
+    function setActive(btn) {
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    /* ── Slider básico ── */
+    const slides = [
+      { badge: 'Semana Cultural 2026',  title: '¡Bienvenidos al Portal Institucional!',     sub: 'Comunidad Filipense · Alcázares, Bogotá' },
+      { badge: 'Filiprensa',            title: 'Edición inicio de año 2026',                sub: 'Nuestro periódico escolar ya está disponible' },
+      { badge: 'Matrículas 2026',       title: '¡Aún estás a tiempo!',                      sub: 'Cupos disponibles para el año escolar 2026' },
+      { badge: '60 Años',               title: 'Educando Líderes desde 1965',                sub: 'Una institución con historia y vocación de servicio' },
+    ];
+
+    let current = 0;
+    const dots  = document.querySelectorAll('.dot');
+
+    function goSlide(i) {
+      current = i;
+      document.getElementById('slider-badge').textContent = slides[i].badge;
+      document.getElementById('slider-title').textContent = slides[i].title;
+      document.getElementById('slider-sub').textContent   = slides[i].sub;
+      dots.forEach((d, idx) => d.classList.toggle('active', idx === i));
+    }
+
+    setInterval(() => goSlide((current + 1) % slides.length), 5000);
+  </script>
+</body>
+</html>
